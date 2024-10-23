@@ -6,7 +6,7 @@ Scheduler::Scheduler()
     ready_queue = NULL;
 }
 
-// constructor for non-RR algs
+// constructor for all algs except RR and PP
 Scheduler::Scheduler(DList<PCB> *rq, CPU *cp, int alg)
 {
     ready_queue = rq;
@@ -16,7 +16,7 @@ Scheduler::Scheduler(DList<PCB> *rq, CPU *cp, int alg)
     algorithm = alg;
 }
 
-// constructor for RR alg
+// constructor for RR and PP alg
 Scheduler::Scheduler(DList<PCB> *rq, CPU *cp, int alg, int tq)
 {
     ready_queue = rq;
