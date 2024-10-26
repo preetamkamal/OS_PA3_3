@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
     int algorithm = atoi(argv[3]);
-    if ((algorithm == 2 || algorithm == 3) && argc == 4)
+    if ((algorithm == 2 || algorithm == 3 || algorithm == 4) && argc == 4)
     {
         cout << "Need to provide time quantum when using Round Robin algorithm" << endl;
         return EXIT_FAILURE;
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     // variables to hold initial arguments
 
     int timeq = -1;
-    if (algorithm == 2 || algorithm == 3)
+    if (algorithm == 2 || algorithm == 3 || algorithm == 4)
         timeq = atoi(argv[4]);
 
     // queues to hold PCBs throughout

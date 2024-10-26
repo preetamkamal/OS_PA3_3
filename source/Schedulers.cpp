@@ -1,5 +1,6 @@
 #include "../headers/Schedulers.h"
-
+#include <random>
+// #include <climits>
 Scheduler::Scheduler()
 {
     next_pcb_index = -1;
@@ -61,6 +62,9 @@ void Scheduler::execute()
             break;
         case 3:
             pp();
+            break;
+        case 4:
+            pr();
             break;
         default:
             break;
@@ -193,6 +197,23 @@ void Scheduler::pp()
             {
                 timer = timeq;
             }
+        }
+    }
+}
+void Scheduler::pr()
+{
+    if (cpu->isidle() || timer <= 0)
+    {
+        timer = timeq;
+        int size = ready_queue->size();
+        if (size > 0)
+        {
+            static std::random_device rd;
+            static std::default_random_engine generator(rd());
+            std::uniform_int_distribution<int> distribution(0, size - 1);
+            int random_index = distribution(generator);
+            next_pcb_index = random_index;
+            dispatcher->interrupt();
         }
     }
 }
