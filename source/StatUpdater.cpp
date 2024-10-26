@@ -50,6 +50,9 @@ void StatUpdater::print() {
         case 3:
             alg = "Preemptive Priority";
             break;
+        case 4:
+            alg = "Random";
+            break;
     }
 
     outfile << "*******************************************************************" << std::endl;
