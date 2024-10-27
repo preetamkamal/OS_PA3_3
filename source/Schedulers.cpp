@@ -249,8 +249,15 @@ Dispatcher::Dispatcher(CPU *cp, Scheduler *sch, DList<PCB> *rq, Clock *cl, StatU
 PCB *Dispatcher::switchcontext(int index)
 {
     PCB *old_pcb = cpu->pcb;
-    PCB *new_pcb = new PCB(ready_queue->removeindex(scheduler->getnext()));
-    cpu->pcb = new_pcb;
+    if (index >= 0 && index < ready_queue->size())
+    {
+        PCB *new_pcb = new PCB(ready_queue->removeindex(index));
+        cpu->pcb = new_pcb;
+    }
+    else
+    {
+        cpu->pcb = NULL;
+    }
     return old_pcb;
 }
 

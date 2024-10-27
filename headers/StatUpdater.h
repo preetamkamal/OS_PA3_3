@@ -14,13 +14,13 @@
 
 using std::cout;
 
-// class that handles updating waiting times, response times, etc.
-// and prints them in a specific format to a provided file name
+// Class that handles updating waiting times, response times, etc.
 class StatUpdater
 {
 private:
     DList<PCB> *ready_queue;
     DList<PCB> *finished_queue;
+    DList<PCB> *blocked_queue; // Added blocked queue
     Clock *clock;
     CPU *cpu;
     int algorithm, num_tasks, timeq;
@@ -29,7 +29,7 @@ private:
     std::vector<std::string> logs;
 
 public:
-    StatUpdater(DList<PCB> *rq, DList<PCB> *fq, Clock *cl, int alg, std::string fn, int tq, CPU *cp);
+    StatUpdater(DList<PCB> *rq, DList<PCB> *fq, DList<PCB> *bq, Clock *cl, int alg, std::string fn, int tq, CPU *cp);
     void execute();
     void print();
     void addLogEntry(const std::string &entry);

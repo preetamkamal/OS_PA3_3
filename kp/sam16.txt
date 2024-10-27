@@ -1,0 +1,799 @@
+*******************************************************************
+Scheduling Algorithm: Preemptive Priority
+(No. Of Tasks = 6 Quantum = 2)
+*******************************************************************
+----------------------------------------------------------------------------------------------------------------------
+| PID        | Arrival    | CPU-Burst  | Priority   | Finish     | Waiting    | Turnaround | Response   | C. Switches| 
+----------------------------------------------------------------------------------------------------------------------
+| 1          | 0          | 10         | 2          | 49.5       | 39.5       | 49.5       | 0          | 4          |
+----------------------------------------------------------------------------------------------------------------------
+| 2          | 1          | 10         | 2          | 56.5       | 45.5       | 55.5       | 1.5        | 4          |
+----------------------------------------------------------------------------------------------------------------------
+| 3          | 2          | 10         | 2          | 70.5       | 53         | 68.5       | 3          | 5          |
+----------------------------------------------------------------------------------------------------------------------
+| 4          | 3          | 10         | 2          | 61         | 48         | 58         | 15.5       | 4          |
+----------------------------------------------------------------------------------------------------------------------
+| 5          | 4          | 10         | 2          | 69.5       | 50.5       | 65.5       | 17         | 4          |
+----------------------------------------------------------------------------------------------------------------------
+| 6          | 5          | 10         | 1          | 16         | 0.5        | 11         | 1          | 0          |
+----------------------------------------------------------------------------------------------------------------------
+
+Average CPU Burst Time: 10 ms		Average Waiting Time: 39.5 ms
+Average Turnaround Time: 51.3333 ms		Average Response Time: 6.33333 ms
+Total No. of Context Switching Performed: 21
+
+Process Log:
+Process loaded at time 0: PID 1
+Time 0:
+CPU: PID 1, Time Left: 9.5
+Ready Queue: 
+Blocked Queue: 
+Finished Queue: 
+
+Time 0.5:
+CPU: PID 1, Time Left: 9
+Ready Queue: 
+Blocked Queue: 
+Finished Queue: 
+
+Time 1:
+CPU: PID 1, Time Left: 8.5
+Ready Queue: PID 2(Time Left: 10) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 1.5:
+CPU: PID 1, Time Left: 8
+Ready Queue: PID 2(Time Left: 10) 
+Blocked Queue: 
+Finished Queue: 
+
+Context switch at time 2.5: from PID 1 to PID 2
+
+Time 2.5:
+CPU: PID 2, Time Left: 9.5
+Ready Queue: PID 3(Time Left: 10) PID 1(Time Left: 8) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 3:
+CPU: PID 2, Time Left: 9
+Ready Queue: PID 3(Time Left: 10) PID 1(Time Left: 8) PID 4(Time Left: 10) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 3.5:
+CPU: PID 2, Time Left: 8.5
+Ready Queue: PID 3(Time Left: 10) PID 1(Time Left: 8) PID 4(Time Left: 10) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 4:
+CPU: PID 2, Time Left: 8
+Ready Queue: PID 3(Time Left: 10) PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) 
+Blocked Queue: 
+Finished Queue: 
+
+Context switch at time 5: from PID 2 to PID 3
+
+Time 5:
+CPU: PID 3, Time Left: 9.5
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) 
+Blocked Queue: 
+Finished Queue: 
+
+Context switch at time 6: from PID 3 to PID 6
+
+Time 6:
+CPU: PID 6, Time Left: 9.5
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 6.5:
+CPU: PID 6, Time Left: 9
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 7:
+CPU: PID 6, Time Left: 8.5
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 7.5:
+CPU: PID 6, Time Left: 8
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 8:
+CPU: PID 6, Time Left: 7.5
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 8.5:
+CPU: PID 6, Time Left: 7
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 9:
+CPU: PID 6, Time Left: 6.5
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 9.5:
+CPU: PID 6, Time Left: 6
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 10:
+CPU: PID 6, Time Left: 5.5
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 10.5:
+CPU: PID 6, Time Left: 5
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 11:
+CPU: PID 6, Time Left: 4.5
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 11.5:
+CPU: PID 6, Time Left: 4
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 12:
+CPU: PID 6, Time Left: 3.5
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 12.5:
+CPU: PID 6, Time Left: 3
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 13:
+CPU: PID 6, Time Left: 2.5
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 13.5:
+CPU: PID 6, Time Left: 2
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 14:
+CPU: PID 6, Time Left: 1.5
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 14.5:
+CPU: PID 6, Time Left: 1
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 15:
+CPU: PID 6, Time Left: 0.5
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: 
+
+Time 15.5:
+CPU is idle
+Ready Queue: PID 1(Time Left: 8) PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Process loaded at time 16: PID 1
+Time 16:
+CPU: PID 1, Time Left: 7.5
+Ready Queue: PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 16.5:
+CPU: PID 1, Time Left: 7
+Ready Queue: PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 17:
+CPU: PID 1, Time Left: 6.5
+Ready Queue: PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 17.5:
+CPU: PID 1, Time Left: 6
+Ready Queue: PID 4(Time Left: 10) PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Context switch at time 18.5: from PID 1 to PID 4
+
+Time 18.5:
+CPU: PID 4, Time Left: 9.5
+Ready Queue: PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) PID 1(Time Left: 6) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 19:
+CPU: PID 4, Time Left: 9
+Ready Queue: PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) PID 1(Time Left: 6) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 19.5:
+CPU: PID 4, Time Left: 8.5
+Ready Queue: PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) PID 1(Time Left: 6) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 20:
+CPU: PID 4, Time Left: 8
+Ready Queue: PID 5(Time Left: 10) PID 2(Time Left: 8) PID 3(Time Left: 9.5) PID 1(Time Left: 6) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Context switch at time 21: from PID 4 to PID 5
+
+Time 21:
+CPU: PID 5, Time Left: 9.5
+Ready Queue: PID 2(Time Left: 8) PID 3(Time Left: 9.5) PID 1(Time Left: 6) PID 4(Time Left: 8) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 21.5:
+CPU is idle
+Ready Queue: PID 2(Time Left: 8) PID 3(Time Left: 9.5) PID 1(Time Left: 6) PID 4(Time Left: 8) 
+Blocked Queue: PID 5(I/O Time Left: 4.5) 
+Finished Queue: PID 6 
+
+Process loaded at time 22: PID 2
+Time 22:
+CPU: PID 2, Time Left: 7.5
+Ready Queue: PID 3(Time Left: 9.5) PID 1(Time Left: 6) PID 4(Time Left: 8) 
+Blocked Queue: PID 5(I/O Time Left: 4) 
+Finished Queue: PID 6 
+
+Time 22.5:
+CPU: PID 2, Time Left: 7
+Ready Queue: PID 3(Time Left: 9.5) PID 1(Time Left: 6) PID 4(Time Left: 8) 
+Blocked Queue: PID 5(I/O Time Left: 3.5) 
+Finished Queue: PID 6 
+
+Time 23:
+CPU: PID 2, Time Left: 6.5
+Ready Queue: PID 3(Time Left: 9.5) PID 1(Time Left: 6) PID 4(Time Left: 8) 
+Blocked Queue: PID 5(I/O Time Left: 3) 
+Finished Queue: PID 6 
+
+Time 23.5:
+CPU: PID 2, Time Left: 6
+Ready Queue: PID 3(Time Left: 9.5) PID 1(Time Left: 6) PID 4(Time Left: 8) 
+Blocked Queue: PID 5(I/O Time Left: 2.5) 
+Finished Queue: PID 6 
+
+Context switch at time 24.5: from PID 2 to PID 3
+
+Time 24.5:
+CPU is idle
+Ready Queue: PID 1(Time Left: 6) PID 4(Time Left: 8) PID 2(Time Left: 6) 
+Blocked Queue: PID 5(I/O Time Left: 2) PID 3(I/O Time Left: 4.5) 
+Finished Queue: PID 6 
+
+Process loaded at time 25: PID 1
+Time 25:
+CPU: PID 1, Time Left: 5.5
+Ready Queue: PID 4(Time Left: 8) PID 2(Time Left: 6) 
+Blocked Queue: PID 5(I/O Time Left: 1.5) PID 3(I/O Time Left: 4) 
+Finished Queue: PID 6 
+
+Time 25.5:
+CPU: PID 1, Time Left: 5
+Ready Queue: PID 4(Time Left: 8) PID 2(Time Left: 6) 
+Blocked Queue: PID 5(I/O Time Left: 1) PID 3(I/O Time Left: 3.5) 
+Finished Queue: PID 6 
+
+Time 26:
+CPU: PID 1, Time Left: 4.5
+Ready Queue: PID 4(Time Left: 8) PID 2(Time Left: 6) 
+Blocked Queue: PID 5(I/O Time Left: 0.5) PID 3(I/O Time Left: 3) 
+Finished Queue: PID 6 
+
+Process PID 5 completed I/O at time 26.5 and moved back to ready queue.
+
+Time 26.5:
+CPU: PID 1, Time Left: 4
+Ready Queue: PID 4(Time Left: 8) PID 2(Time Left: 6) PID 5(Time Left: 9) 
+Blocked Queue: PID 3(I/O Time Left: 2.5) 
+Finished Queue: PID 6 
+
+Context switch at time 27.5: from PID 1 to PID 4
+
+Time 27.5:
+CPU: PID 4, Time Left: 7.5
+Ready Queue: PID 2(Time Left: 6) PID 5(Time Left: 9) PID 1(Time Left: 4) 
+Blocked Queue: PID 3(I/O Time Left: 2) 
+Finished Queue: PID 6 
+
+Time 28:
+CPU: PID 4, Time Left: 7
+Ready Queue: PID 2(Time Left: 6) PID 5(Time Left: 9) PID 1(Time Left: 4) 
+Blocked Queue: PID 3(I/O Time Left: 1.5) 
+Finished Queue: PID 6 
+
+Time 28.5:
+CPU: PID 4, Time Left: 6.5
+Ready Queue: PID 2(Time Left: 6) PID 5(Time Left: 9) PID 1(Time Left: 4) 
+Blocked Queue: PID 3(I/O Time Left: 1) 
+Finished Queue: PID 6 
+
+Time 29:
+CPU: PID 4, Time Left: 6
+Ready Queue: PID 2(Time Left: 6) PID 5(Time Left: 9) PID 1(Time Left: 4) 
+Blocked Queue: PID 3(I/O Time Left: 0.5) 
+Finished Queue: PID 6 
+
+Context switch at time 30: from PID 4 to PID 2
+
+Process PID 3 completed I/O at time 30 and moved back to ready queue.
+
+Time 30:
+CPU: PID 2, Time Left: 5.5
+Ready Queue: PID 5(Time Left: 9) PID 1(Time Left: 4) PID 4(Time Left: 6) PID 3(Time Left: 9) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 30.5:
+CPU: PID 2, Time Left: 5
+Ready Queue: PID 5(Time Left: 9) PID 1(Time Left: 4) PID 4(Time Left: 6) PID 3(Time Left: 9) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 31:
+CPU: PID 2, Time Left: 4.5
+Ready Queue: PID 5(Time Left: 9) PID 1(Time Left: 4) PID 4(Time Left: 6) PID 3(Time Left: 9) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 31.5:
+CPU: PID 2, Time Left: 4
+Ready Queue: PID 5(Time Left: 9) PID 1(Time Left: 4) PID 4(Time Left: 6) PID 3(Time Left: 9) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Context switch at time 32.5: from PID 2 to PID 5
+
+Time 32.5:
+CPU: PID 5, Time Left: 8.5
+Ready Queue: PID 1(Time Left: 4) PID 4(Time Left: 6) PID 3(Time Left: 9) PID 2(Time Left: 4) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 33:
+CPU: PID 5, Time Left: 8
+Ready Queue: PID 1(Time Left: 4) PID 4(Time Left: 6) PID 3(Time Left: 9) PID 2(Time Left: 4) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 33.5:
+CPU: PID 5, Time Left: 7.5
+Ready Queue: PID 1(Time Left: 4) PID 4(Time Left: 6) PID 3(Time Left: 9) PID 2(Time Left: 4) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 34:
+CPU: PID 5, Time Left: 7
+Ready Queue: PID 1(Time Left: 4) PID 4(Time Left: 6) PID 3(Time Left: 9) PID 2(Time Left: 4) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Context switch at time 35: from PID 5 to PID 1
+
+Time 35:
+CPU: PID 1, Time Left: 3.5
+Ready Queue: PID 4(Time Left: 6) PID 3(Time Left: 9) PID 2(Time Left: 4) PID 5(Time Left: 7) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 35.5:
+CPU: PID 1, Time Left: 3
+Ready Queue: PID 4(Time Left: 6) PID 3(Time Left: 9) PID 2(Time Left: 4) PID 5(Time Left: 7) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 36:
+CPU: PID 1, Time Left: 2.5
+Ready Queue: PID 4(Time Left: 6) PID 3(Time Left: 9) PID 2(Time Left: 4) PID 5(Time Left: 7) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 36.5:
+CPU: PID 1, Time Left: 2
+Ready Queue: PID 4(Time Left: 6) PID 3(Time Left: 9) PID 2(Time Left: 4) PID 5(Time Left: 7) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Context switch at time 37.5: from PID 1 to PID 4
+
+Time 37.5:
+CPU: PID 4, Time Left: 5.5
+Ready Queue: PID 3(Time Left: 9) PID 2(Time Left: 4) PID 5(Time Left: 7) PID 1(Time Left: 2) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 38:
+CPU: PID 4, Time Left: 5
+Ready Queue: PID 3(Time Left: 9) PID 2(Time Left: 4) PID 5(Time Left: 7) PID 1(Time Left: 2) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 38.5:
+CPU: PID 4, Time Left: 4.5
+Ready Queue: PID 3(Time Left: 9) PID 2(Time Left: 4) PID 5(Time Left: 7) PID 1(Time Left: 2) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 39:
+CPU: PID 4, Time Left: 4
+Ready Queue: PID 3(Time Left: 9) PID 2(Time Left: 4) PID 5(Time Left: 7) PID 1(Time Left: 2) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Context switch at time 40: from PID 4 to PID 3
+
+Time 40:
+CPU: PID 3, Time Left: 8.5
+Ready Queue: PID 2(Time Left: 4) PID 5(Time Left: 7) PID 1(Time Left: 2) PID 4(Time Left: 4) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 40.5:
+CPU: PID 3, Time Left: 8
+Ready Queue: PID 2(Time Left: 4) PID 5(Time Left: 7) PID 1(Time Left: 2) PID 4(Time Left: 4) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 41:
+CPU: PID 3, Time Left: 7.5
+Ready Queue: PID 2(Time Left: 4) PID 5(Time Left: 7) PID 1(Time Left: 2) PID 4(Time Left: 4) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 41.5:
+CPU: PID 3, Time Left: 7
+Ready Queue: PID 2(Time Left: 4) PID 5(Time Left: 7) PID 1(Time Left: 2) PID 4(Time Left: 4) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Context switch at time 42.5: from PID 3 to PID 2
+
+Time 42.5:
+CPU: PID 2, Time Left: 3.5
+Ready Queue: PID 5(Time Left: 7) PID 1(Time Left: 2) PID 4(Time Left: 4) PID 3(Time Left: 7) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 43:
+CPU: PID 2, Time Left: 3
+Ready Queue: PID 5(Time Left: 7) PID 1(Time Left: 2) PID 4(Time Left: 4) PID 3(Time Left: 7) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 43.5:
+CPU: PID 2, Time Left: 2.5
+Ready Queue: PID 5(Time Left: 7) PID 1(Time Left: 2) PID 4(Time Left: 4) PID 3(Time Left: 7) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 44:
+CPU: PID 2, Time Left: 2
+Ready Queue: PID 5(Time Left: 7) PID 1(Time Left: 2) PID 4(Time Left: 4) PID 3(Time Left: 7) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Context switch at time 45: from PID 2 to PID 5
+
+Time 45:
+CPU: PID 5, Time Left: 6.5
+Ready Queue: PID 1(Time Left: 2) PID 4(Time Left: 4) PID 3(Time Left: 7) PID 2(Time Left: 2) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 45.5:
+CPU: PID 5, Time Left: 6
+Ready Queue: PID 1(Time Left: 2) PID 4(Time Left: 4) PID 3(Time Left: 7) PID 2(Time Left: 2) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 46:
+CPU: PID 5, Time Left: 5.5
+Ready Queue: PID 1(Time Left: 2) PID 4(Time Left: 4) PID 3(Time Left: 7) PID 2(Time Left: 2) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 46.5:
+CPU: PID 5, Time Left: 5
+Ready Queue: PID 1(Time Left: 2) PID 4(Time Left: 4) PID 3(Time Left: 7) PID 2(Time Left: 2) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Context switch at time 47.5: from PID 5 to PID 1
+
+Time 47.5:
+CPU: PID 1, Time Left: 1.5
+Ready Queue: PID 4(Time Left: 4) PID 3(Time Left: 7) PID 2(Time Left: 2) PID 5(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 48:
+CPU: PID 1, Time Left: 1
+Ready Queue: PID 4(Time Left: 4) PID 3(Time Left: 7) PID 2(Time Left: 2) PID 5(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 48.5:
+CPU: PID 1, Time Left: 0.5
+Ready Queue: PID 4(Time Left: 4) PID 3(Time Left: 7) PID 2(Time Left: 2) PID 5(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 
+
+Time 49:
+CPU is idle
+Ready Queue: PID 4(Time Left: 4) PID 3(Time Left: 7) PID 2(Time Left: 2) PID 5(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 
+
+Process loaded at time 49.5: PID 4
+Time 49.5:
+CPU: PID 4, Time Left: 3.5
+Ready Queue: PID 3(Time Left: 7) PID 2(Time Left: 2) PID 5(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 
+
+Time 50:
+CPU: PID 4, Time Left: 3
+Ready Queue: PID 3(Time Left: 7) PID 2(Time Left: 2) PID 5(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 
+
+Time 50.5:
+CPU: PID 4, Time Left: 2.5
+Ready Queue: PID 3(Time Left: 7) PID 2(Time Left: 2) PID 5(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 
+
+Time 51:
+CPU: PID 4, Time Left: 2
+Ready Queue: PID 3(Time Left: 7) PID 2(Time Left: 2) PID 5(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 
+
+Context switch at time 52: from PID 4 to PID 3
+
+Time 52:
+CPU: PID 3, Time Left: 6.5
+Ready Queue: PID 2(Time Left: 2) PID 5(Time Left: 5) PID 4(Time Left: 2) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 
+
+Time 52.5:
+CPU: PID 3, Time Left: 6
+Ready Queue: PID 2(Time Left: 2) PID 5(Time Left: 5) PID 4(Time Left: 2) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 
+
+Time 53:
+CPU: PID 3, Time Left: 5.5
+Ready Queue: PID 2(Time Left: 2) PID 5(Time Left: 5) PID 4(Time Left: 2) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 
+
+Time 53.5:
+CPU: PID 3, Time Left: 5
+Ready Queue: PID 2(Time Left: 2) PID 5(Time Left: 5) PID 4(Time Left: 2) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 
+
+Context switch at time 54.5: from PID 3 to PID 2
+
+Time 54.5:
+CPU: PID 2, Time Left: 1.5
+Ready Queue: PID 5(Time Left: 5) PID 4(Time Left: 2) PID 3(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 
+
+Time 55:
+CPU: PID 2, Time Left: 1
+Ready Queue: PID 5(Time Left: 5) PID 4(Time Left: 2) PID 3(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 
+
+Time 55.5:
+CPU: PID 2, Time Left: 0.5
+Ready Queue: PID 5(Time Left: 5) PID 4(Time Left: 2) PID 3(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 
+
+Time 56:
+CPU is idle
+Ready Queue: PID 5(Time Left: 5) PID 4(Time Left: 2) PID 3(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 
+
+Process loaded at time 56.5: PID 5
+Time 56.5:
+CPU: PID 5, Time Left: 4.5
+Ready Queue: PID 4(Time Left: 2) PID 3(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 
+
+Time 57:
+CPU: PID 5, Time Left: 4
+Ready Queue: PID 4(Time Left: 2) PID 3(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 
+
+Time 57.5:
+CPU: PID 5, Time Left: 3.5
+Ready Queue: PID 4(Time Left: 2) PID 3(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 
+
+Time 58:
+CPU: PID 5, Time Left: 3
+Ready Queue: PID 4(Time Left: 2) PID 3(Time Left: 5) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 
+
+Context switch at time 59: from PID 5 to PID 4
+
+Time 59:
+CPU: PID 4, Time Left: 1.5
+Ready Queue: PID 3(Time Left: 5) PID 5(Time Left: 3) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 
+
+Time 59.5:
+CPU: PID 4, Time Left: 1
+Ready Queue: PID 3(Time Left: 5) PID 5(Time Left: 3) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 
+
+Time 60:
+CPU: PID 4, Time Left: 0.5
+Ready Queue: PID 3(Time Left: 5) PID 5(Time Left: 3) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 
+
+Time 60.5:
+CPU is idle
+Ready Queue: PID 3(Time Left: 5) PID 5(Time Left: 3) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 
+
+Process loaded at time 61: PID 3
+Time 61:
+CPU: PID 3, Time Left: 4.5
+Ready Queue: PID 5(Time Left: 3) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 
+
+Time 61.5:
+CPU: PID 3, Time Left: 4
+Ready Queue: PID 5(Time Left: 3) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 
+
+Time 62:
+CPU: PID 3, Time Left: 3.5
+Ready Queue: PID 5(Time Left: 3) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 
+
+Time 62.5:
+CPU: PID 3, Time Left: 3
+Ready Queue: PID 5(Time Left: 3) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 
+
+Context switch at time 63.5: from PID 3 to PID 5
+
+Time 63.5:
+CPU: PID 5, Time Left: 2.5
+Ready Queue: PID 3(Time Left: 3) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 
+
+Time 64:
+CPU: PID 5, Time Left: 2
+Ready Queue: PID 3(Time Left: 3) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 
+
+Time 64.5:
+CPU: PID 5, Time Left: 1.5
+Ready Queue: PID 3(Time Left: 3) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 
+
+Time 65:
+CPU: PID 5, Time Left: 1
+Ready Queue: PID 3(Time Left: 3) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 
+
+Context switch at time 66: from PID 5 to PID 3
+
+Time 66:
+CPU: PID 3, Time Left: 2.5
+Ready Queue: PID 5(Time Left: 1) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 
+
+Time 66.5:
+CPU: PID 3, Time Left: 2
+Ready Queue: PID 5(Time Left: 1) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 
+
+Time 67:
+CPU: PID 3, Time Left: 1.5
+Ready Queue: PID 5(Time Left: 1) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 
+
+Time 67.5:
+CPU: PID 3, Time Left: 1
+Ready Queue: PID 5(Time Left: 1) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 
+
+Context switch at time 68.5: from PID 3 to PID 5
+
+Time 68.5:
+CPU: PID 5, Time Left: 0.5
+Ready Queue: PID 3(Time Left: 1) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 
+
+Time 69:
+CPU is idle
+Ready Queue: PID 3(Time Left: 1) 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 PID 5 
+
+Process loaded at time 69.5: PID 3
+Time 69.5:
+CPU: PID 3, Time Left: 0.5
+Ready Queue: 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 PID 5 
+
+Time 70:
+CPU is idle
+Ready Queue: 
+Blocked Queue: 
+Finished Queue: PID 6 PID 1 PID 2 PID 4 PID 5 PID 3 
+

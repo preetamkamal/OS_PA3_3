@@ -1,9 +1,10 @@
 #include "../headers/StatUpdater.h"
 
-StatUpdater::StatUpdater(DList<PCB> *rq, DList<PCB> *fq, Clock *cl, int alg, std::string fn, int tq, CPU *cp)
+StatUpdater::StatUpdater(DList<PCB> *rq, DList<PCB> *fq, DList<PCB> *bq, Clock *cl, int alg, std::string fn, int tq, CPU *cp)
 {
     ready_queue = rq;
     finished_queue = fq;
+    blocked_queue = bq;
     clock = cl;
     algorithm = alg;
     timeq = tq;
@@ -17,12 +18,39 @@ void StatUpdater::execute()
 {
     float increment = clock->gettime() - last_update;
     last_update = clock->gettime();
+
+    // Update waiting time for processes in ready queue
     for (int index = 0; index < ready_queue->size(); ++index)
     {
         PCB *temp = ready_queue->getindex(index);
         temp->wait_time += increment;
     }
 
+    // Update I/O Burst time for processes in blocked queue
+    int index = 0;
+    while (index < blocked_queue->size())
+    {
+        PCB *temp = blocked_queue->getindex(index);
+        temp->io_burst -= .5; // Decrement I/O Burst time
+
+        if (temp->io_burst <= 0)
+        {
+            // Move process back to ready queue
+            temp->io_burst = 0;
+            PCB unblocked_pcb = blocked_queue->removeindex(index);
+            ready_queue->add_end(unblocked_pcb);
+            std::stringstream ss;
+            ss << "Process PID " << unblocked_pcb.pid << " completed I/O at time " << clock->gettime() << " and moved back to ready queue.\n";
+            addLogEntry(ss.str());
+            // Do not increment index since we removed an element
+        }
+        else
+        {
+            index++;
+        }
+    }
+
+    // Logging
     std::stringstream ss;
     ss << "Time " << clock->gettime() << ":\n";
 
@@ -41,6 +69,14 @@ void StatUpdater::execute()
     {
         PCB *pcb = ready_queue->getindex(index);
         ss << "PID " << pcb->pid << "(Time Left: " << pcb->time_left << ") ";
+    }
+    ss << "\n";
+
+    ss << "Blocked Queue: ";
+    for (int index = 0; index < blocked_queue->size(); ++index)
+    {
+        PCB *pcb = blocked_queue->getindex(index);
+        ss << "PID " << pcb->pid << "(I/O Time Left: " << pcb->io_burst << ") ";
     }
     ss << "\n";
 
