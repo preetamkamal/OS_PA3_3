@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
         CPU cpu(finished_queue, &clock);
         StatUpdater stats(ready_queue, finished_queue, &clock, algorithm, argv[2], timeq, &cpu);
         Scheduler scheduler(ready_queue, &cpu, algorithm, timeq);
-        Dispatcher dispatcher(&cpu, &scheduler, ready_queue, &clock);
+        Dispatcher dispatcher(&cpu, &scheduler, ready_queue, &clock, &stats);
         scheduler.setdispatcher(&dispatcher);
 
         // loop will continue until no more processes are going to be generated, no more in ready queue, and cpu is done

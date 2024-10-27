@@ -6,7 +6,8 @@
 
 class CPU;
 class Scheduler;
-// needs to be forward declared since Dispatcher and Scheduler mutually include each other
+class StatUpdater;
+
 class Dispatcher
 {
 private:
@@ -15,10 +16,11 @@ private:
     DList<PCB> *ready_queue;
     Clock *clock;
     bool _interrupt;
+    StatUpdater *statupdater;
 
 public:
     Dispatcher();
-    Dispatcher(CPU *cp, Scheduler *sch, DList<PCB> *rq, Clock *cl);
+    Dispatcher(CPU *cp, Scheduler *sch, DList<PCB> *rq, Clock *cl, StatUpdater *su);
     PCB *switchcontext(int index);
     void execute();
     void interrupt();
@@ -32,7 +34,7 @@ private:
     CPU *cpu;
     Dispatcher *dispatcher;
     int algorithm;
-    float timeq, timer; // time quantum, timer to keep track of when to interrupt dispatcher
+    float timeq, timer; // time quantum
 public:
     Scheduler();
     Scheduler(DList<PCB> *rq, CPU *cp, int alg);

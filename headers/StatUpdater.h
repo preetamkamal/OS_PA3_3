@@ -32,6 +32,7 @@ public:
     StatUpdater(DList<PCB> *rq, DList<PCB> *fq, Clock *cl, int alg, std::string fn, int tq, CPU *cp);
     void execute();
     void print();
+    void addLogEntry(const std::string &entry);
 };
 
 #endif // LAB2_STATUPDATER_H

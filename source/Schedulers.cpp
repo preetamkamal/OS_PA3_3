@@ -1,6 +1,8 @@
 #include "../headers/Schedulers.h"
+#include "../headers/StatUpdater.h"
+#include <sstream>
 #include <random>
-// #include <climits>
+#include <climits>
 Scheduler::Scheduler()
 {
     next_pcb_index = -1;
@@ -229,15 +231,17 @@ Dispatcher::Dispatcher()
     scheduler = NULL;
     ready_queue = NULL;
     clock = NULL;
+    statupdater = NULL;
     _interrupt = false;
 }
 
-Dispatcher::Dispatcher(CPU *cp, Scheduler *sch, DList<PCB> *rq, Clock *cl)
+Dispatcher::Dispatcher(CPU *cp, Scheduler *sch, DList<PCB> *rq, Clock *cl, StatUpdater *su)
 {
     cpu = cp;
     scheduler = sch;
     ready_queue = rq;
     clock = cl;
+    statupdater = su;
     _interrupt = false;
 };
 
@@ -262,7 +266,18 @@ void Dispatcher::execute()
             cpu->getpcb()->wait_time += .5;
             clock->step();
             ready_queue->add_end(*old_pcb);
+            std::stringstream ss;
+            ss << "Context switch at time " << clock->gettime() << ": from PID "
+               << old_pcb->pid << " to PID " << cpu->getpcb()->pid << std::endl;
+            statupdater->addLogEntry(ss.str());
+
             delete old_pcb;
+        }
+        else
+        {
+            std::stringstream ss;
+            ss << "Process loaded at time " << clock->gettime() << ": PID " << cpu->getpcb()->pid;
+            statupdater->addLogEntry(ss.str());
         }
         _interrupt = false;
     }

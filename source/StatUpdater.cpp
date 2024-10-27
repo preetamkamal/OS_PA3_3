@@ -22,8 +22,10 @@ void StatUpdater::execute()
         PCB *temp = ready_queue->getindex(index);
         temp->wait_time += increment;
     }
+
     std::stringstream ss;
     ss << "Time " << clock->gettime() << ":\n";
+
     if (cpu->isidle())
     {
         ss << "CPU is idle\n";
@@ -41,6 +43,7 @@ void StatUpdater::execute()
         ss << "PID " << pcb->pid << "(Time Left: " << pcb->time_left << ") ";
     }
     ss << "\n";
+
     ss << "Finished Queue: ";
     for (int index = 0; index < finished_queue->size(); ++index)
     {
@@ -50,6 +53,11 @@ void StatUpdater::execute()
     ss << "\n";
 
     logs.push_back(ss.str());
+}
+
+void StatUpdater::addLogEntry(const std::string &entry)
+{
+    logs.push_back(entry);
 }
 
 // straightforward print function that prints to file using iomanip and column for a table format
@@ -126,6 +134,7 @@ void StatUpdater::print()
     outfile << "Average CPU Burst Time: " << tot_burst / num_tasks << " ms\t\tAverage Waiting Time: " << tot_wait / num_tasks << " ms" << std::endl
             << "Average Turnaround Time: " << tot_turn / num_tasks << " ms\t\tAverage Response Time: " << tot_resp / num_tasks << " ms" << std::endl
             << "Total No. of Context Switching Performed: " << contexts << std::endl;
+
     outfile << "\nProcess Log:\n";
     for (const auto &log_entry : logs)
     {
