@@ -36,8 +36,8 @@ int main(int argc, char *argv[])
         // all the objects that will work together to simulate OS process management
         Clock clock;
         PCBGenerator pgen(argv[1], ready_queue, &clock);
-        StatUpdater stats(ready_queue, finished_queue, &clock, algorithm, argv[2], timeq);
         CPU cpu(finished_queue, &clock);
+        StatUpdater stats(ready_queue, finished_queue, &clock, algorithm, argv[2], timeq, &cpu);
         Scheduler scheduler(ready_queue, &cpu, algorithm, timeq);
         Dispatcher dispatcher(&cpu, &scheduler, ready_queue, &clock);
         scheduler.setdispatcher(&dispatcher);

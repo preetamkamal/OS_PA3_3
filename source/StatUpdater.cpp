@@ -1,32 +1,61 @@
 #include "../headers/StatUpdater.h"
 
-StatUpdater::StatUpdater(DList<PCB> *rq, DList<PCB> *fq, Clock *cl, int alg, std::string fn, int tq){
-ready_queue = rq;
-finished_queue = fq;
-clock = cl;
-algorithm = alg;
-timeq = tq;
-filename = fn;
-last_update = 0;
+StatUpdater::StatUpdater(DList<PCB> *rq, DList<PCB> *fq, Clock *cl, int alg, std::string fn, int tq, CPU *cp)
+{
+    ready_queue = rq;
+    finished_queue = fq;
+    clock = cl;
+    algorithm = alg;
+    timeq = tq;
+    filename = fn;
+    last_update = 0;
+    cpu = cp;
 }
 
-//main function that gets called every clock cycle to update times of pcbs
-void StatUpdater::execute() {
-    //increment handles situations where a context switch happens in middle of cycle
-    //allows updater to increment times
+// main function that gets called every clock cycle to update times of pcbs
+void StatUpdater::execute()
+{
     float increment = clock->gettime() - last_update;
     last_update = clock->gettime();
-    for(int index = 0; index < ready_queue->size(); ++index){
-        //get pointer to each pcb in queue and update their waiting times
-        PCB* temp = ready_queue->getindex(index);
+    for (int index = 0; index < ready_queue->size(); ++index)
+    {
+        PCB *temp = ready_queue->getindex(index);
         temp->wait_time += increment;
     }
+    std::stringstream ss;
+    ss << "Time " << clock->gettime() << ":\n";
+    if (cpu->isidle())
+    {
+        ss << "CPU is idle\n";
+    }
+    else
+    {
+        PCB *pcb = cpu->getpcb();
+        ss << "CPU: PID " << pcb->pid << ", Time Left: " << pcb->time_left << "\n";
+    }
+
+    ss << "Ready Queue: ";
+    for (int index = 0; index < ready_queue->size(); ++index)
+    {
+        PCB *pcb = ready_queue->getindex(index);
+        ss << "PID " << pcb->pid << "(Time Left: " << pcb->time_left << ") ";
+    }
+    ss << "\n";
+    ss << "Finished Queue: ";
+    for (int index = 0; index < finished_queue->size(); ++index)
+    {
+        PCB *pcb = finished_queue->getindex(index);
+        ss << "PID " << pcb->pid << " ";
+    }
+    ss << "\n";
+
+    logs.push_back(ss.str());
 }
 
-
-//straightforward print function that prints to file using iomanip and column for a table format
-//uses finished queue to tally up final stats
-void StatUpdater::print() {
+// straightforward print function that prints to file using iomanip and column for a table format
+// uses finished queue to tally up final stats
+void StatUpdater::print()
+{
     num_tasks = finished_queue->size();
     std::string alg;
     int colwidth = 11;
@@ -36,28 +65,29 @@ void StatUpdater::print() {
 
     std::ofstream outfile(filename);
 
-
-    switch(algorithm){
-        case 0:
-            alg = "FCFS";
-            break;
-        case 1:
-            alg = "SRTF";
-            break;
-        case 2:
-            alg = "Round Robin";
-            break;
-        case 3:
-            alg = "Preemptive Priority";
-            break;
-        case 4:
-            alg = "Random";
-            break;
+    switch (algorithm)
+    {
+    case 0:
+        alg = "FCFS";
+        break;
+    case 1:
+        alg = "SRTF";
+        break;
+    case 2:
+        alg = "Round Robin";
+        break;
+    case 3:
+        alg = "Preemptive Priority";
+        break;
+    case 4:
+        alg = "Random";
+        break;
     }
 
     outfile << "*******************************************************************" << std::endl;
     outfile << "Scheduling Algorithm: " << alg << std::endl;
-    if(timeq != -1) outfile << "(No. Of Tasks = " << finished_queue->size() << " Quantum = " << timeq << ")" << std::endl;
+    if (timeq != -1)
+        outfile << "(No. Of Tasks = " << finished_queue->size() << " Quantum = " << timeq << ")" << std::endl;
     outfile << "*******************************************************************" << std::endl;
 
     outfile << "----------------------------------------------------------------------------------------------------------------------" << std::endl;
@@ -68,9 +98,12 @@ void StatUpdater::print() {
             << "| " << std::left << std::setw(colwidth) << "C. Switches" << "| " << std::endl
             << "----------------------------------------------------------------------------------------------------------------------" << std::endl;
 
-    for(int id = 1; id < num_tasks+1; ++id){
-        for(int index = 0; index < finished_queue->size(); ++index){
-            if(finished_queue->getindex(index)->pid == id){
+    for (int id = 1; id < num_tasks + 1; ++id)
+    {
+        for (int index = 0; index < finished_queue->size(); ++index)
+        {
+            if (finished_queue->getindex(index)->pid == id)
+            {
                 PCB temp = finished_queue->removeindex(index);
                 float turnaround = temp.finish_time - temp.arrival;
                 tot_burst += temp.burst;
@@ -90,7 +123,12 @@ void StatUpdater::print() {
         }
     }
     outfile << std::endl;
-    outfile << "Average CPU Burst Time: " << tot_burst/num_tasks << " ms\t\tAverage Waiting Time: " << tot_wait/num_tasks << " ms" << std::endl
-            << "Average Turnaround Time: " << tot_turn/num_tasks << " ms\t\tAverage Response Time: " << tot_resp/num_tasks << " ms" << std::endl
+    outfile << "Average CPU Burst Time: " << tot_burst / num_tasks << " ms\t\tAverage Waiting Time: " << tot_wait / num_tasks << " ms" << std::endl
+            << "Average Turnaround Time: " << tot_turn / num_tasks << " ms\t\tAverage Response Time: " << tot_resp / num_tasks << " ms" << std::endl
             << "Total No. of Context Switching Performed: " << contexts << std::endl;
+    outfile << "\nProcess Log:\n";
+    for (const auto &log_entry : logs)
+    {
+        outfile << log_entry << std::endl;
+    }
 }
